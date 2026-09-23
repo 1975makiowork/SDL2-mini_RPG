@@ -1,0 +1,192 @@
+#include <stdio.h>
+
+#include "map.h"
+#include "chest.h"
+#include "equipment.h"
+#include "message_ui.h"
+
+char field_map[15][21] = {
+
+    "MMMMMMMMMMMMMMMMMMMM",
+    "MGGGGGGTGGGGGGGGGGGM",
+    "MCGEGGGGEGGGGGGGGGGM",
+    "MEGGGGEGGGGGGGGWWWGM",
+    "MGGGGGGGGEGGGGWWWVEM",
+    "MGGGGGGGGGGGGGGWWWGM",
+    "MGGGGGGGGGGGGGGGGGGM",
+    "MGGGGGGGGGGGGGGGGGGM",
+    "MGGGGGGGGGGGEGGGGGGM",
+    "MGGGGWWWGGGGGGGGGGGM",
+    "MGGGGGWWWGGGGGGGGGGM",
+    "MGGGSGGGGGGGGGGGGGGM",
+    "MGGGGGGGGGGGGGGGGGGM",
+    "MGGGGGGGGGGGGGGGGGGM",
+    "MMMMMMMMMMMMMMMMMMMM"
+};
+
+char get_tile(int x, int y)
+{
+    return field_map[y][x];
+}
+
+void town_event(void)
+{
+    show_message("町に到着しました！");
+}
+
+void inn_event(Player *player)
+{
+    if(player->gold < 10)
+    {
+        show_message("お金が足りない！");
+        return;
+    }
+
+    player->gold -= 10;
+
+    player->hp = player->max_hp;
+    player->mp = player->max_mp;
+
+    show_message("宿屋に泊まってステータス全快！");
+}
+
+void npc_event(void)
+{
+    show_message("こんにちは！");
+}
+
+void enemy_event(
+    char map[15][21],
+    int x,
+    int y
+)
+{
+    map[y][x] = '.';
+}
+
+void handle_field_event(
+    char tile,
+    bool *in_town,
+    bool *in_cave,
+    bool *in_temple,
+    Player *player,
+    int new_x,
+    int new_y,
+    BattleMode *battle_mode,
+    int *battle_cursor,
+    int *magic_cursor,
+    int *use_item_cursor,
+    int *shop_cursor,
+    int *item_shop_cursor,
+    Enemy *enemy,
+    SDL_Texture **current_enemy_texture,
+    SDL_Texture *slime_texture,
+    SDL_Texture *goblin_texture,
+    SDL_Texture *orc_texture
+)
+{
+//町の入口
+    if(tile == 'T')
+    {
+        town_event();
+
+        *in_town = true;
+
+        player->x = 3;
+        player->y = 5;
+    }
+//町の出口
+    if(tile == 'O')
+    {
+        *in_town = false;
+        player->x = 7;
+        player->y = 1;
+        show_message("町を出た！");
+    }
+//洞窟入口
+    if(tile == 'V')
+    {
+        *in_cave = true;
+
+        player->x = 1;
+        player->y = 1;
+
+        show_message("洞窟に入った！");
+    }
+//NPC
+    if(tile == 'N')
+    {
+        npc_event();
+    }
+//宿屋
+    if(tile == 'I')
+    {
+        inn_event(player);
+    }
+//武器・防具屋
+    if(tile == 'Q')
+    {
+        *battle_mode = MODE_SHOP;
+        *shop_cursor = 0;
+    }
+//道具屋
+    if(tile == 'A')
+    {
+        *battle_mode = MODE_ITEM_SHOP;
+        *item_shop_cursor = 0;
+    }
+//宝箱
+    if(tile == 'C')
+    {
+        chest_event(
+            player,
+            field_map,
+            new_x,
+            new_y
+        );
+    }
+//神殿入口
+    if(tile == 'S')
+    {
+        *in_temple = true;
+
+        player->x = 4;
+        player->y = 8;
+
+        show_message("謎の神殿に入った！");
+    }
+//エネミーキャラ
+    if(tile == 'E')
+    {
+        start_battle(
+            battle_mode,
+            battle_cursor,
+            magic_cursor,
+            use_item_cursor,
+            enemy,
+            current_enemy_texture,
+            slime_texture,
+            goblin_texture,
+            orc_texture,
+            player,
+            new_x,
+            new_y
+        );
+    }
+}
+char town_map[8][9] = {
+
+    "MMMMMMM",
+    "MGGGGGM",
+    "MGIGQGM",
+    "MGGGGGM",
+    "MGNGAGM",
+    "MGGGGGM",
+    "MGGOGGM",
+    "MMMMMMM"
+};
+
+char get_town_tile(int x, int y)
+{
+    return town_map[y][x];
+}
