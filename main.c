@@ -88,6 +88,47 @@ int main(void)
             "assets/player.png"
         );
 
+    SDL_Texture *field_map_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/field_map.png"
+        );
+
+    SDL_Texture *town_map_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/town_map.png"
+        );
+
+    SDL_Texture *cave_map_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/cave_map.png"
+        );
+
+    SDL_Texture *cave_b1_map_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/cave_b1_map.png"
+        );
+
+    SDL_Texture *cave_b2_map_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/cave_b2_map.png"
+        );
+
+    SDL_Texture *temple_map_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/temple_map.png"
+        );
+
+    if (!field_map_texture || !town_map_texture) {
+        fprintf(stderr, "Map画像の読み込みに失敗しました: %s\n", IMG_GetError());
+        return 1;
+    }
+
     SDL_SetTextureScaleMode(
         player_texture,
         SDL_ScaleModeNearest
@@ -638,27 +679,27 @@ int main(void)
 
             if(in_temple)
             {
-                draw_temple_map(renderer);
+                draw_temple_map(renderer, temple_map_texture);
             }
             else if(in_cave_b2)
             {
-                draw_cave_b2_map(renderer);
+                draw_cave_b2_map(renderer, cave_b2_map_texture);
             }
             else if(in_cave_b1)
             {
-                draw_cave_b1_map(renderer);
+                draw_cave_b1_map(renderer, cave_b1_map_texture);
             }
             else if(in_cave)
             {
-                draw_cave_map(renderer);
+                draw_cave_map(renderer, cave_map_texture);
             }
             else if(in_town)
             {
-                draw_town_map(renderer);
+                draw_town_map(renderer, town_map_texture);
             }
             else
             {
-                draw_map(renderer);
+                draw_map(renderer, field_map_texture);
             }
 
             draw_player(
@@ -826,8 +867,13 @@ int main(void)
 
     TTF_CloseFont(font);
 
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    SDL_DestroyTexture(field_map_texture);
+    SDL_DestroyTexture(town_map_texture);
+    SDL_DestroyTexture(cave_map_texture);
+    SDL_DestroyTexture(cave_b1_map_texture);
+    SDL_DestroyTexture(cave_b2_map_texture);
+    SDL_DestroyTexture(temple_map_texture);
+
     SDL_DestroyTexture(slime_texture);
     SDL_DestroyTexture(goblin_texture);
     SDL_DestroyTexture(orc_texture);
@@ -841,6 +887,9 @@ int main(void)
     SDL_DestroyTexture(wisp_texture);
     SDL_DestroyTexture(lamia_texture);
     SDL_DestroyTexture(dragon_texture);
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
 
     TTF_Quit();
     SDL_Quit();

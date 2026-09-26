@@ -86,27 +86,33 @@ void draw_tile_map(
 );
 
 void draw_map(
-    SDL_Renderer *renderer
+    SDL_Renderer *renderer,
+    SDL_Texture *field_map_texture
 );
 
 void draw_town_map(
-    SDL_Renderer *renderer
+    SDL_Renderer *renderer,
+    SDL_Texture *town_map_texture
 );
 
 void draw_cave_map(
-    SDL_Renderer *renderer
+    SDL_Renderer *renderer,
+    SDL_Texture *cave_map_texture
 );
 
 void draw_cave_b1_map(
-    SDL_Renderer *renderer
+    SDL_Renderer *renderer,
+    SDL_Texture *cave_b1_map_texture
 );
 
 void draw_cave_b2_map(
-    SDL_Renderer *renderer
+    SDL_Renderer *renderer,
+    SDL_Texture *cave_b2_map_texture
 );
 
 void draw_temple_map(
-    SDL_Renderer *renderer
+    SDL_Renderer *renderer,
+    SDL_Texture *temple_map_texture
 );
 
 void draw_battle_background(

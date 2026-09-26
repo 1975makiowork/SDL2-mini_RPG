@@ -11,8 +11,8 @@ char temple_map[11][10] = {
 
     "MMMMMMMMM",
     "MMMMGMMMM",
-    "MMMGDGMMM",
-    "MMGGGGGMM",
+    "MMMGGGMMM",
+    "MMGGDGGMM",
     "MGGGGGGGM",
     "MGGGGGGGM",
     "MGNGGGGGM",
@@ -29,7 +29,7 @@ char get_temple_tile(int x, int y)
 
 void temple_npc_event(void)
 {
-    show_message("龍神様は宝玉を持つ者に姿を表すという…\n");
+    show_message("龍神様は宝玉を持つ者に姿を表すという…");
 }
 
 void handle_temple_event(
@@ -54,7 +54,7 @@ void handle_temple_event(
         player->x = 4;
         player->y = 11;
 
-        printf("神殿を出た！");
+        show_message("神殿を出た！");
     }
 
     if(tile == 'N')
@@ -66,7 +66,7 @@ void handle_temple_event(
     {
         if(player->dragon_defeated)
         {
-            printf("竜神はどこかへ去ったようだ。");
+            show_message("竜神はどこかへ去ったようだ");
         }
         else if(player->inventory.dragon_jewel > 0)
         {
@@ -85,7 +85,7 @@ void handle_temple_event(
         }
         else
         {
-            printf("巨大な龍の石像がある。");
+            show_message("巨大な龍の石像がある");
         }
     }
 }

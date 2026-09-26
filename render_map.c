@@ -107,38 +107,62 @@ void draw_tile_map(
     }
 }
 
-void draw_map(SDL_Renderer *renderer)
+void draw_map(SDL_Renderer *renderer, SDL_Texture *field_map_texture)
 {
-    draw_tile_map(renderer, (const char *)field_map, 21, 20, 15,
-        field_colors, sizeof(field_colors) / sizeof(field_colors[0]));
+    SDL_Rect dst = {
+        0, 0,
+        640, 480
+    };
+
+    SDL_RenderCopy(renderer, field_map_texture, NULL, &dst);
 }
 
-void draw_town_map(SDL_Renderer *renderer)
+void draw_town_map(SDL_Renderer *renderer, SDL_Texture *town_map_texture)
 {
-    draw_tile_map(renderer, (const char *)town_map, 9, 8, 8,
-        town_colors, sizeof(town_colors) / sizeof(town_colors[0]));
+    SDL_Rect dst = {
+        0, 0,
+        224, 256
+    };
+
+    SDL_RenderCopy(renderer, town_map_texture, NULL, &dst);
 }
 
-void draw_cave_map(SDL_Renderer *renderer)
+void draw_cave_map(SDL_Renderer *renderer, SDL_Texture *cave_map_texture)
 {
-    draw_tile_map(renderer, (const char *)cave_map, 21, 20, 15,
-        cave_colors, sizeof(cave_colors) / sizeof(cave_colors[0]));
+    SDL_Rect dst = {
+        0, 0,
+        640, 480
+    };
+
+    SDL_RenderCopy(renderer, cave_map_texture, NULL, &dst);
 }
 
-void draw_cave_b1_map(SDL_Renderer *renderer)
+void draw_cave_b1_map(SDL_Renderer *renderer, SDL_Texture *cave_b1_map_texture)
 {
-    draw_tile_map(renderer, (const char *)cave_b1_map, 21, 20, 15,
-        cave_b1_colors, sizeof(cave_b1_colors) / sizeof(cave_b1_colors[0]));
+    SDL_Rect dst = {
+        0, 0,
+        640, 480
+    };
+
+    SDL_RenderCopy(renderer, cave_b1_map_texture, NULL, &dst);
 }
 
-void draw_cave_b2_map(SDL_Renderer *renderer)
+void draw_cave_b2_map(SDL_Renderer *renderer, SDL_Texture *cave_b2_map_texture)
 {
-    draw_tile_map(renderer, (const char *)cave_b2_map, 21, 20, 15,
-        cave_b2_colors, sizeof(cave_b2_colors) / sizeof(cave_b2_colors[0]));
+    SDL_Rect dst = {
+        0, 0,
+        640, 480
+    };
+
+    SDL_RenderCopy(renderer, cave_b2_map_texture, NULL, &dst);
 }
 
-void draw_temple_map(SDL_Renderer *renderer)
+void draw_temple_map(SDL_Renderer *renderer, SDL_Texture *temple_map_texture)
 {
-    draw_tile_map(renderer, (const char *)temple_map, 10, 9, 11,
-        temple_colors, sizeof(temple_colors) / sizeof(temple_colors[0]));
+    SDL_Rect dst = {
+        0, 0,
+        288, 352
+    };
+
+    SDL_RenderCopy(renderer, temple_map_texture, NULL, &dst);
 }

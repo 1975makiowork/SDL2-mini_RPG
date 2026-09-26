@@ -8,7 +8,7 @@
 
 extern char field_map[15][21];
 
-extern char town_map[8][9];
+extern char town_map[8][8];
 
 char get_tile(int x, int y);
 

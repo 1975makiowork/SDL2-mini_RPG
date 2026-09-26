@@ -174,7 +174,7 @@ void handle_field_event(
         );
     }
 }
-char town_map[8][9] = {
+char town_map[8][8] = {
 
     "MMMMMMM",
     "MGGGGGM",
