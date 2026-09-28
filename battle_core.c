@@ -200,10 +200,6 @@ void battle_attack(
 
         add_battle_log(msg);
 
-        printf("%s HP:%d\n",
-               enemy->name,
-               enemy->hp);
-
         if(enemy->hp <= 0)
         {
             enemy->hp = 0;

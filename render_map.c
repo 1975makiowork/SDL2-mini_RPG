@@ -7,69 +7,51 @@
 
 #define TILE_SIZE 32
 
-static const TileColor field_colors[] = {
-    {'M', 100,100,100,255},
-    {'W', 0,100,255,255},
-    {'.', 0,255,0,255},
-    {'G', 0,255,0,255},
-    {'T', 255,255,0,255},
-    {'V', 200,200,200,255},
-    {'S', 100,100,0,255},
-    {'C', 50,200,200,255},
-    {'E', 255,0,0,255},
+typedef struct
+{
+    int x;
+    int y;
+} ChestPosition;
+
+static const ChestPosition field_chests[] = {
+    {1, 2}
 };
 
-static const TileColor town_colors[] = {
-    {'M', 100,100,100,255},
-    {'G', 0,255,0,255},
-    {'N', 255,0,255,255},
-    {'I', 0,255,255,255},
-    {'Q', 255,128,0,255},
-    {'A', 180,50,180,255},
-    {'O', 255,255,255,255},
+static const ChestPosition cave_chests[] = {
+    {18, 5},
+    {1, 8},
+    {3, 8}
 };
 
-static const TileColor cave_colors[] = {
-    {'M', 100,100,100,255},
-    {'W', 0,100,255,255},
-    {'.', 30,30,30,255},
-    {'F', 30,30,30,255},
-    {'U', 0,200,0,255},
-    {'D', 200,0,0,255},
-    {'C', 150,75,0,255},
-    {'E', 255,0,0,255},
+static const ChestPosition cave_b1_chests[] = {
+    {5, 5},
+    {11, 5},
+    {17, 11}
 };
 
-static const TileColor cave_b1_colors[] = {
-    {'M', 100,100,100,255},
-    {'W', 0,100,255,255},
-    {'.', 30,30,30,255},
-    {'F', 30,30,30,255},
-    {'U', 0,200,0,255},
-    {'D', 200,0,0,255},
-    {'O', 0,0,200,255},
-    {'C', 150,75,0,255},
-    {'E', 255,0,0,255},
+static const ChestPosition cave_b2_chests[] = {
+    {3, 3},
+    {10, 3},
+    {12, 7},
+    {18, 13}
 };
 
-static const TileColor temple_colors[] = {
-    {'M', 100,100,100,255},
-    {'G', 0,255,0,255},
-    {'N', 255,0,255,255},
-    {'D', 255,100,0,255},
-    {'O', 255,255,255,255},
-};
+static void draw_chest_at(
+    SDL_Renderer *renderer,
+    SDL_Texture *texture,
+    int x,
+    int y
+)
+{
+    SDL_Rect dst = {
+        x * TILE_SIZE,
+        y * TILE_SIZE,
+        TILE_SIZE,
+        TILE_SIZE
+    };
 
-static const TileColor cave_b2_colors[] = {
-    {'M', 100,100,100,255},
-    {'W', 0,100,255,255},
-    {'.', 30,30,30,255},
-    {'F', 30,30,30,255},
-    {'U', 200,0,0,255},
-    {'P', 0,100,200,255},
-    {'C', 50,200,200,255},
-    {'E', 255,0,0,255},
-};
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+}
 
 void draw_tile_map(
     SDL_Renderer *renderer,
@@ -166,3 +148,144 @@ void draw_temple_map(SDL_Renderer *renderer, SDL_Texture *temple_map_texture)
 
     SDL_RenderCopy(renderer, temple_map_texture, NULL, &dst);
 }
+
+void draw_field_chests(
+    SDL_Renderer *renderer,
+    char map[15][21],
+    SDL_Texture *chest_closed_texture,
+    SDL_Texture *chest_open_texture
+)
+{
+    int count = sizeof(field_chests) / sizeof(field_chests[0]);
+
+    for(int i = 0; i < count; i++)
+    {
+        int x = field_chests[i].x;
+        int y = field_chests[i].y;
+
+        if(map[y][x] == 'C')
+        {
+            draw_chest_at(
+                renderer,
+                chest_closed_texture,
+                x,
+                y
+            );
+        }
+        else
+        {
+            draw_chest_at(
+                renderer,
+                chest_open_texture,
+                x,
+                y
+            );
+        }
+    }
+}
+
+void draw_cave_chests(
+    SDL_Renderer *renderer,
+    char map[15][21],
+    SDL_Texture *chest_closed_texture,
+    SDL_Texture *chest_open_texture
+)
+{
+    int count = sizeof(cave_chests) / sizeof(cave_chests[0]);
+
+    for(int i = 0; i < count; i++)
+    {
+        int x = cave_chests[i].x;
+        int y = cave_chests[i].y;
+
+        if(map[y][x] == 'C')
+        {
+            draw_chest_at(
+                renderer,
+                chest_closed_texture,
+                x,
+                y
+            );
+        }
+        else
+        {
+            draw_chest_at(
+                renderer,
+                chest_open_texture,
+                x,
+                y
+            );
+        }
+    }
+}
+
+void draw_cave_b1_chests(
+    SDL_Renderer *renderer,
+    char map[15][21],
+    SDL_Texture *chest_closed_texture,
+    SDL_Texture *chest_open_texture
+)
+{
+    int count = sizeof(cave_b1_chests) / sizeof(cave_b1_chests[0]);
+
+    for(int i = 0; i < count; i++)
+    {
+        int x = cave_b1_chests[i].x;
+        int y = cave_b1_chests[i].y;
+
+        if(map[y][x] == 'C')
+        {
+            draw_chest_at(
+                renderer,
+                chest_closed_texture,
+                x,
+                y
+            );
+        }
+        else
+        {
+            draw_chest_at(
+                renderer,
+                chest_open_texture,
+                x,
+                y
+            );
+        }
+    }
+}
+
+void draw_cave_b2_chests(
+    SDL_Renderer *renderer,
+    char map[15][21],
+    SDL_Texture *chest_closed_texture,
+    SDL_Texture *chest_open_texture
+)
+{
+    int count = sizeof(cave_b2_chests) / sizeof(cave_b2_chests[0]);
+
+    for(int i = 0; i < count; i++)
+    {
+        int x = cave_b2_chests[i].x;
+        int y = cave_b2_chests[i].y;
+
+        if(map[y][x] == 'C')
+        {
+            draw_chest_at(
+                renderer,
+                chest_closed_texture,
+                x,
+                y
+            );
+        }
+        else
+        {
+            draw_chest_at(
+                renderer,
+                chest_open_texture,
+                x,
+                y
+            );
+        }
+    }
+}
+

@@ -14,10 +14,6 @@ void chest_event(
     player->inventory.potion++;
 
     show_message("ポーションを入手した！");
-    printf(
-        "現在:%d個\n",
-        player->inventory.potion
-    );
 
     open_chest(map, x, y);
 }
@@ -43,10 +39,6 @@ void cave_chest_event(
         player->gold += 50;
 
         show_message("50Gを入手した！");
-        printf(
-            "所持金:%dG\n",
-            player->gold
-        );
     }
     else if(x == 1 && y == 8)
     {
@@ -55,20 +47,12 @@ void cave_chest_event(
         calc_player_status(player);
 
         show_message("木の盾を入手した！");
-        printf(
-            "DEF:%d\n",
-            player->defense
-        );
     }
     else if(x == 3 && y == 8)
     {
         player->inventory.ether++;
 
         show_message("エーテルを入手した！");
-        printf(
-            "現在:%d個\n",
-            player->inventory.ether
-        );
     }
 
     open_chest(map, x, y);
@@ -94,20 +78,12 @@ void cave_b1_chest_event(
         player->inventory.potion++;
 
         show_message("ポーションを入手した！");
-        printf(
-            "現在:%d個\n",
-            player->inventory.potion
-        );
     }
     else if(x == 17 && y == 11)
     {
         player->inventory.bomb++;
 
         show_message("爆薬を入手した！");
-        printf(
-            "現在:%d個\n",
-            player->inventory.bomb
-        );
     }
 
     open_chest(map, x, y);
@@ -143,10 +119,6 @@ void cave_b2_chest_event(
         player->inventory.dragon_jewel++;
 
         show_message("ドラゴンオーブを入手した！");
-        printf(
-            "現在:%d個\n",
-            player->inventory.dragon_jewel
-        );
     }
 
     if(x == 18 && y == 13)

@@ -129,6 +129,37 @@ int main(void)
         return 1;
     }
 
+    SDL_Texture *chest_closed_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/chest_closed.png"
+        );
+
+    SDL_Texture *chest_open_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/chest_open.png"
+        );
+
+if (
+    !field_map_texture ||
+    !town_map_texture ||
+    !cave_map_texture ||
+    !cave_b1_map_texture ||
+    !cave_b2_map_texture ||
+    !temple_map_texture ||
+    !chest_closed_texture ||
+    !chest_open_texture
+)
+{
+    fprintf(
+        stderr,
+        "Mapまたは宝箱画像の読み込みに失敗しました: %s\n",
+        IMG_GetError()
+    );
+    return 1;
+}
+
     SDL_SetTextureScaleMode(
         player_texture,
         SDL_ScaleModeNearest
@@ -684,14 +715,35 @@ int main(void)
             else if(in_cave_b2)
             {
                 draw_cave_b2_map(renderer, cave_b2_map_texture);
+
+                draw_cave_b2_chests(
+                    renderer,
+                    cave_b2_map,
+                    chest_closed_texture,
+                    chest_open_texture
+                );
             }
             else if(in_cave_b1)
             {
                 draw_cave_b1_map(renderer, cave_b1_map_texture);
+
+                draw_cave_b1_chests(
+                    renderer,
+                    cave_b1_map,
+                    chest_closed_texture,
+                    chest_open_texture
+                );
             }
             else if(in_cave)
             {
                 draw_cave_map(renderer, cave_map_texture);
+
+                draw_cave_chests(
+                    renderer,
+                    cave_map,
+                    chest_closed_texture,
+                    chest_open_texture
+                );
             }
             else if(in_town)
             {
@@ -700,6 +752,13 @@ int main(void)
             else
             {
                 draw_map(renderer, field_map_texture);
+
+                draw_field_chests(
+                    renderer,
+                    field_map,
+                    chest_closed_texture,
+                    chest_open_texture
+                );
             }
 
             draw_player(
@@ -873,6 +932,9 @@ int main(void)
     SDL_DestroyTexture(cave_b1_map_texture);
     SDL_DestroyTexture(cave_b2_map_texture);
     SDL_DestroyTexture(temple_map_texture);
+
+    SDL_DestroyTexture(chest_closed_texture);
+    SDL_DestroyTexture(chest_open_texture);
 
     SDL_DestroyTexture(slime_texture);
     SDL_DestroyTexture(goblin_texture);

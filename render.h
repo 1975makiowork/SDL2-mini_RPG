@@ -115,6 +115,33 @@ void draw_temple_map(
     SDL_Texture *temple_map_texture
 );
 
+void draw_field_chests(
+    SDL_Renderer *renderer,
+    char map[15][21],
+    SDL_Texture *chest_closed_texture,
+    SDL_Texture *chest_open_texture
+);
+void draw_cave_chests(
+    SDL_Renderer *renderer,
+    char map[15][21],
+    SDL_Texture *chest_closed_texture,
+    SDL_Texture *chest_open_texture
+);
+
+void draw_cave_b1_chests(
+    SDL_Renderer *renderer,
+    char map[15][21],
+    SDL_Texture *chest_closed_texture,
+    SDL_Texture *chest_open_texture
+);
+
+void draw_cave_b2_chests(
+    SDL_Renderer *renderer,
+    char map[15][21],
+    SDL_Texture *chest_closed_texture,
+    SDL_Texture *chest_open_texture
+);
+
 void draw_battle_background(
     SDL_Renderer *renderer
 );
