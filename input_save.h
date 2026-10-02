@@ -15,7 +15,8 @@ void handle_save_input(
     bool *in_cave,
     bool *in_cave_b1,
     bool *in_cave_b2,
-    bool *in_temple
+    bool *in_temple,
+    bool *running
 );
 
 void save_initial_state(Player *player);

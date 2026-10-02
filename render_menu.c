@@ -139,7 +139,7 @@ void draw_equipment(
 
     draw_text(renderer, font, "===装備説明===", 120, 400);
     draw_text(renderer, font, "ENTER：装備/解除", 290, 430);
-    draw_text(renderer, font, "ESC：戻る", 290, 460);
+    draw_text(renderer, font, "SPACE：戻る", 290, 460);
 
     static const char *equip_desc[] = {
         "攻撃力 +2",
@@ -173,5 +173,6 @@ void draw_save(
 
     draw_menu_item(renderer, font, "セーブ", 120, 150, save_cursor == 0);
     draw_menu_item(renderer, font, "ロード", 120, 180, save_cursor == 1);
+    draw_menu_item(renderer, font, "終わる", 120, 210, save_cursor == 2);
 }
 

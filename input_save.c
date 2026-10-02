@@ -40,10 +40,11 @@ void handle_save_input(
     bool *in_cave,
     bool *in_cave_b1,
     bool *in_cave_b2,
-    bool *in_temple
+    bool *in_temple, 
+    bool *running
 )
 {
-    if(event->key.keysym.sym == SDLK_ESCAPE)
+    if(event->key.keysym.sym == SDLK_SPACE)
     {
         *battle_mode = MODE_FIELD;
     }
@@ -99,6 +100,11 @@ void handle_save_input(
                 }
                 break;
             }
+
+            case 2:
+            {
+                *running = false;
+            }
         }
     }
 
@@ -114,10 +120,10 @@ void handle_save_input(
 
     if(*save_cursor < 0)
     {
-        *save_cursor = 1;
+        *save_cursor = 2;
     }
 
-    if(*save_cursor > 1)
+    if(*save_cursor > 2)
     {
         *save_cursor = 0;
     }

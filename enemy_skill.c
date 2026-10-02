@@ -12,8 +12,6 @@ static bool deal_damage_to_player(
 {
     player->hp -= damage;
 
-    printf("プレイヤーHP:%d\n", player->hp);
-
     if(player->hp <= 0)
     {
         printf("ゲームオーバー！\n");
@@ -105,9 +103,6 @@ static void bat_special_move(
 
     add_battle_log(msg);
 
-    printf("プレイヤーHP:%d\n",
-           player->hp);
-
     if(player->hp <= 0)
     {
         printf("ゲームオーバー！\n");
@@ -145,9 +140,6 @@ static void skeleton_special_move(
     sprintf(msg, "%dダメージ！", enemy_damage);
 
     add_battle_log(msg);
-
-    printf("プレイヤーHP:%d\n",
-            player->hp);
 
     if(player->hp <= 0)
     {
@@ -195,9 +187,6 @@ static void golem_special_move(
         );
 
         add_battle_log(msg);
-
-        printf("プレイヤーHP:%d\n",
-            player->hp);
 
         if(player->hp <= 0)
         {
@@ -392,9 +381,6 @@ static void kobold_special_move(
 
     add_battle_log(msg);
 
-    printf("プレイヤーHP:%d\n",
-            player->hp);
-
     if(player->hp <= 0)
     {
         printf("ゲームオーバー！\n");
@@ -426,9 +412,6 @@ static void wisp_special_move(
         );
 
         add_battle_log(msg);
-
-        printf("プレイヤーHP:%d\n",
-            player->hp);
 
         if(player->hp <= 0)
         {
@@ -891,9 +874,6 @@ void enemy_action(
                 );
 
                 add_battle_log(msg);
-
-                printf("プレイヤーHP:%d\n",
-                    player->hp);
 
                 if(player->hp <= 0)
                 {

@@ -488,9 +488,6 @@ void enemy_turn(
 
         player->hp -= 3;
 
-        printf("プレイヤーHP:%d\n",
-               player->hp);
-
         if(player->hp <= 0)
         {
             printf("ゲームオーバー！\n");
@@ -511,9 +508,6 @@ void enemy_turn(
         add_battle_log("火傷ダメージを受けている！");
 
         player->hp -= 5;
-
-        printf("プレイヤーHP:%d\n",
-               player->hp);
 
         if(player->hp <= 0)
         {

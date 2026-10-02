@@ -115,6 +115,18 @@ void draw_temple_map(
     SDL_Texture *temple_map_texture
 );
 
+void draw_town_npc(
+    SDL_Renderer *renderer,
+    char map[8][8],
+    SDL_Texture *villager_texture
+);
+
+void draw_temple_npc(
+    SDL_Renderer *renderer,
+    char map[11][10],
+    SDL_Texture *priest_texture
+);
+
 void draw_field_chests(
     SDL_Renderer *renderer,
     char map[15][21],
@@ -140,6 +152,12 @@ void draw_cave_b2_chests(
     char map[15][21],
     SDL_Texture *chest_closed_texture,
     SDL_Texture *chest_open_texture
+);
+
+void draw_boss(
+    SDL_Renderer *renderer,
+    char map[11][10],
+    SDL_Texture *boss_texture
 );
 
 void draw_battle_background(

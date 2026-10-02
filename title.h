@@ -11,8 +11,9 @@ void handle_title_input(
 );
 
 void draw_title(
-    SDL_Renderer *rederer,
-    TTF_Font *font
+    SDL_Renderer *renderer,
+    TTF_Font *font,
+    SDL_Texture *title_texture
 );
 
 void handle_game_over_input(
@@ -22,7 +23,8 @@ void handle_game_over_input(
 
 void draw_game_over(
     SDL_Renderer *renderer,
-    TTF_Font *font
+    TTF_Font *font,
+    SDL_Texture *gameover_texture
 );
 
 #endif

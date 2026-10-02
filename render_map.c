@@ -149,6 +149,96 @@ void draw_temple_map(SDL_Renderer *renderer, SDL_Texture *temple_map_texture)
     SDL_RenderCopy(renderer, temple_map_texture, NULL, &dst);
 }
 
+void draw_town_npc(
+    SDL_Renderer *renderer,
+    char map[8][8],
+    SDL_Texture *villager_texture
+)
+{
+    for(int y = 0; y < 8; y++)
+    {
+        for(int x = 0; x < 7; x++)
+        {
+            if(map[y][x] == 'N')
+            {
+                SDL_Rect dst = {
+                    x * TILE_SIZE - 32,
+                    y * TILE_SIZE,
+                    TILE_SIZE,
+                    TILE_SIZE
+                };
+
+                SDL_RenderCopy(
+                    renderer,
+                    villager_texture,
+                    NULL,
+                    &dst
+                );
+            }
+        }
+    }
+}
+
+void draw_temple_npc(
+    SDL_Renderer *renderer,
+    char map[11][10],
+    SDL_Texture *priest_texture
+)
+{
+    for(int y = 0; y < 10; y++)
+    {
+        for(int x = 0; x < 10; x++)
+        {
+            if(map[y][x] == 'N')
+            {
+                SDL_Rect dst = {
+                    x * TILE_SIZE,
+                    y * TILE_SIZE - 48,
+                    TILE_SIZE,
+                    48
+                };
+
+                SDL_RenderCopy(
+                    renderer,
+                    priest_texture,
+                    NULL,
+                    &dst
+                );
+            }
+        }
+    }
+}
+
+void draw_boss(
+    SDL_Renderer *renderer,
+    char map[11][10],
+    SDL_Texture *boss_texture
+)
+{
+    for(int y = 0; y < 10; y++)
+    {
+        for(int x = 0; x < 10; x++)
+        {
+            if(map[y][x] == 'D')
+            {
+                SDL_Rect dst = {
+                    x * TILE_SIZE - 32,
+                    y * TILE_SIZE - 96,
+                    96,
+                    96
+                };
+
+                SDL_RenderCopy(
+                    renderer,
+                    boss_texture,
+                    NULL,
+                    &dst
+                );
+            }
+        }
+    }
+}
+
 void draw_field_chests(
     SDL_Renderer *renderer,
     char map[15][21],

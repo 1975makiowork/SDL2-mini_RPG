@@ -82,10 +82,40 @@ int main(void)
             SDL_RENDERER_ACCELERATED
             );
 
+    SDL_Texture *title_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/title.png"
+        );
+
+    SDL_Texture *gameover_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/gameover.png"
+        );
+
     SDL_Texture *player_texture =
         IMG_LoadTexture(
             renderer,
             "assets/player.png"
+        );
+
+    SDL_Texture *villager_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/npc_villager.png"
+        );
+
+    SDL_Texture *priest_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/npc_priest.png"
+        );
+
+    SDL_Texture *boss_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/boss.png"
         );
 
     SDL_Texture *field_map_texture =
@@ -366,7 +396,7 @@ if (
                             }
                         }
 
-                        if(event.key.keysym.sym == SDLK_ESCAPE)
+                        if(event.key.keysym.sym == SDLK_SPACE)
                         {
                             menu_open = !menu_open;
 
@@ -608,7 +638,8 @@ if (
                             &in_cave,
                             &in_cave_b1,
                             &in_cave_b2,
-                            &in_temple
+                            &in_temple,
+                            &running
                         );
                     }
 //通常戦闘処理
@@ -690,11 +721,11 @@ if (
 
         if(screen == SCREEN_TITLE)
         {
-            draw_title(renderer, font);
+            draw_title(renderer, font, title_texture);
         }
         else if(screen == SCREEN_GAME_OVER)
         {
-            draw_game_over(renderer, font);
+            draw_game_over(renderer, font, gameover_texture);
         }
         else if(screen == SCREEN_PLAYING)
         {
@@ -711,6 +742,18 @@ if (
             if(in_temple)
             {
                 draw_temple_map(renderer, temple_map_texture);
+
+                draw_temple_npc(
+                    renderer,
+                    temple_map,
+                    priest_texture
+                );
+
+                draw_boss(
+                    renderer,
+                    temple_map,
+                    boss_texture
+                );
             }
             else if(in_cave_b2)
             {
@@ -748,6 +791,12 @@ if (
             else if(in_town)
             {
                 draw_town_map(renderer, town_map_texture);
+
+                draw_town_npc(
+                    renderer,
+                    town_map,
+                    villager_texture
+                );
             }
             else
             {
@@ -925,6 +974,14 @@ if (
     }
 
     TTF_CloseFont(font);
+
+    SDL_DestroyTexture(title_texture);
+    SDL_DestroyTexture(gameover_texture);
+
+    SDL_DestroyTexture(villager_texture);
+    SDL_DestroyTexture(priest_texture);
+
+    SDL_DestroyTexture(boss_texture);
 
     SDL_DestroyTexture(field_map_texture);
     SDL_DestroyTexture(town_map_texture);

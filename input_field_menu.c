@@ -1,4 +1,3 @@
-// input_field_menu.c
 #include "input_field_menu.h"
 #include "equipment.h"
 #include "message_ui.h"
@@ -8,7 +7,7 @@ void handle_status_input(
     BattleMode *battle_mode
 )
 {
-    if(event->key.keysym.sym == SDLK_ESCAPE)
+    if(event->key.keysym.sym == SDLK_SPACE)
     {
         *battle_mode = MODE_FIELD;
     }
@@ -24,7 +23,7 @@ void handle_item_menu_input(
     bool *in_cave_b2
 )
 {
-    if(event->key.keysym.sym == SDLK_ESCAPE)
+    if(event->key.keysym.sym == SDLK_SPACE)
     {
         *battle_mode = MODE_FIELD;
     }
@@ -134,7 +133,7 @@ void handle_equipment_input(
     Player *player
 )
 {
-    if(event->key.keysym.sym == SDLK_ESCAPE)
+    if(event->key.keysym.sym == SDLK_SPACE)
     {
         *battle_mode = MODE_FIELD;
     }
