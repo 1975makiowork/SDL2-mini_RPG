@@ -1,3 +1,4 @@
+// temple.h
 #ifndef TEMPLE_H
 #define TEMPLE_H
 

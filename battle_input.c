@@ -1,3 +1,4 @@
+//battle_input.c
 #include <stdio.h>
 #include <stdbool.h>
 

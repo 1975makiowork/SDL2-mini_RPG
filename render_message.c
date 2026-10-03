@@ -1,3 +1,4 @@
+// render_message.c
 #include "render.h"
 
 void draw_message(

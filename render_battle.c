@@ -1,3 +1,4 @@
+// render_battle.c
 #include "render.h"
 
 void draw_hp_bar(

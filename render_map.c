@@ -1,3 +1,4 @@
+// render_map.c
 #include "render.h"
 #include "map.h"
 #include "cave.h"

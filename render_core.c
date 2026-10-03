@@ -1,3 +1,4 @@
+// render_core.c
 #include "render.h"
 
 #include <SDL2/SDL_ttf.h>
