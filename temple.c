@@ -7,6 +7,7 @@
 #include "magic.h"
 #include "enemy.h"
 #include "message_ui.h"
+#include "bgm.h"
 
 char temple_map[11][10] = {
 
@@ -54,6 +55,8 @@ void handle_temple_event(
 
         player->x = 4;
         player->y = 11;
+
+        set_area_bgm(BGM_FIELD);
 
         show_message("神殿を出た！");
     }

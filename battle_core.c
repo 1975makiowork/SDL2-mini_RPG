@@ -13,6 +13,7 @@
 #include "cave_b2.h"
 #include "temple.h"
 #include "message_ui.h"
+#include "bgm.h"
 
 //必要累積EXP計算式
 int required_exp(int level)
@@ -140,6 +141,7 @@ void enemy_defeat(
         printf("Lv:%d\n", player->level);
     }
     end_battle(battle_mode);
+    end_battle_bgm();
 }
 
 void end_battle(
@@ -491,7 +493,6 @@ void enemy_turn(
 
         if(player->hp <= 0)
         {
-            printf("ゲームオーバー！\n");
             end_battle(battle_mode);
         }
 
@@ -512,7 +513,6 @@ void enemy_turn(
 
         if(player->hp <= 0)
         {
-            printf("ゲームオーバー！\n");
             end_battle(battle_mode);
         }
 

@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 
 #include "map.h"
 #include "battle.h"
@@ -23,6 +24,7 @@
 #include "game_state.h"
 #include "shop.h"
 #include "title.h"
+#include "bgm.h"
 
 int main(void)
 {
@@ -48,11 +50,25 @@ int main(void)
         0
     };
 
-    if(SDL_Init(SDL_INIT_VIDEO) != 0)
+    if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
     {
-        printf("SDL error: %s\n", SDL_GetError());
+        fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
         return 1;
     }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        fprintf(stderr, "Mix_OpenAudio Error: %s\n", Mix_GetError());
+        return 1;
+    }
+
+    if (!init_bgm())
+    {
+        Mix_CloseAudio();
+        SDL_Quit();
+        return 1;
+    }
+
+    play_bgm(BGM_TITLE);
 
     if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
     {
@@ -344,6 +360,8 @@ if (
                         in_temple = false;
 
                         save_initial_state(&player);
+
+                        play_bgm(BGM_FIELD);
                     }
                 }
                 else if(screen == SCREEN_GAME_OVER)
@@ -360,6 +378,8 @@ if (
                             &in_cave_b2,
                             &in_temple
                         );
+
+                        play_bgm(BGM_TITLE);
                     }
                 }
                 else if(screen == SCREEN_PLAYING)
@@ -710,6 +730,7 @@ if (
         if(screen == SCREEN_PLAYING && player.hp <= 0)
         {
             screen = SCREEN_GAME_OVER;
+            play_bgm(BGM_GAMEOVER);
         }
 
 //プレイヤー表示
@@ -1010,6 +1031,9 @@ if (
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
+    quit_bgm();
+    Mix_CloseAudio();
 
     TTF_Quit();
     SDL_Quit();

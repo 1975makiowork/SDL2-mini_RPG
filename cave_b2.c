@@ -7,6 +7,7 @@
 #include "magic.h"
 #include "enemy.h"
 #include "message_ui.h"
+#include "bgm.h"
 
 char cave_b2_map[15][21] = {
 
@@ -57,6 +58,8 @@ void handle_cave_b2_event(
         player->x = 12;
         player->y = 4;
 
+        set_area_bgm(BGM_CAVE_B1);
+
         show_message("洞窟地下１階へ戻った！");
     }
 
@@ -66,6 +69,8 @@ void handle_cave_b2_event(
 
         player->x = 14;
         player->y = 4;
+
+        set_area_bgm(BGM_CAVE_B1);
 
         show_message("洞窟地下１階へ戻った！");
     }

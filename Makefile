@@ -2,7 +2,7 @@ CC = gcc
 
 CFLAGS = -Wall -O2 $(shell sdl2-config --cflags)
 
-LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf -lSDL2_image
+LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 
 TARGET = game
 
@@ -11,7 +11,7 @@ render_menu.o render_battle.o render_shop.o render_message.o \
 battle_core.o battle_input.o battle_start.o magic.o item_shop.o \
 chest.o map.o cave.o cave_b1.o cave_b2.o temple.o \
 enemy.o enemy_skill.o message_ui.o save.o \
-input_field_menu.o input_save.o title.o
+input_field_menu.o input_save.o title.o bgm.o
 
 all: $(TARGET)
 

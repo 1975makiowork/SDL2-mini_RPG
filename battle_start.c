@@ -13,6 +13,7 @@
 #include "cave_b2.h"
 #include "temple.h"
 #include "message_ui.h"
+#include "bgm.h"
 
 void start_battle(
     BattleMode *battle_mode,
@@ -33,6 +34,8 @@ void start_battle(
     *battle_cursor = 0;
     *magic_cursor = 0;
     *use_item_cursor = 0;
+
+    play_bgm(BGM_BATTLE);
 
     setup_field_enemy(
         enemy,
@@ -67,6 +70,8 @@ void start_cave_battle(
     *magic_cursor = 0;
     *use_item_cursor = 0;
 
+    play_bgm(BGM_BATTLE);
+
     setup_cave_enemy(
         enemy,
         current_enemy_texture,
@@ -99,6 +104,8 @@ void start_cave_b1_battle(
     *battle_cursor = 0;
     *magic_cursor = 0;
     *use_item_cursor = 0;
+
+    play_bgm(BGM_BATTLE);
 
     setup_cave_b1_enemy(
         enemy,
@@ -133,6 +140,8 @@ void start_cave_b2_battle(
     *magic_cursor = 0;
     *use_item_cursor = 0;
 
+    play_bgm(BGM_BATTLE);
+
     setup_cave_b2_enemy(
         enemy,
         current_enemy_texture,
@@ -163,6 +172,8 @@ void start_boss_battle(
     *battle_cursor = 0;
     *magic_cursor = 0;
     *use_item_cursor = 0;
+
+    play_bgm(BGM_BOSS);
 
     setup_temple_enemy(
         enemy,

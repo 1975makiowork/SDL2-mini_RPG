@@ -5,6 +5,7 @@
 #include "chest.h"
 #include "equipment.h"
 #include "message_ui.h"
+#include "bgm.h"
 
 char field_map[15][21] = {
 
@@ -95,6 +96,8 @@ void handle_field_event(
 
         player->x = 3;
         player->y = 5;
+
+        set_area_bgm(BGM_TOWN);
     }
 //町の出口
     if(tile == 'O')
@@ -102,6 +105,9 @@ void handle_field_event(
         *in_town = false;
         player->x = 7;
         player->y = 1;
+
+        set_area_bgm(BGM_FIELD);
+
         show_message("町を出た！");
     }
 //洞窟入口
@@ -111,6 +117,8 @@ void handle_field_event(
 
         player->x = 1;
         player->y = 1;
+
+        set_area_bgm(BGM_CAVE);
 
         show_message("洞窟に入った！");
     }
@@ -153,6 +161,8 @@ void handle_field_event(
 
         player->x = 4;
         player->y = 8;
+
+        set_area_bgm(BGM_TEMPLE);
 
         show_message("謎の神殿に入った！");
     }
