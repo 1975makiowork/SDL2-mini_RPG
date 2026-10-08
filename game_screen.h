@@ -5,7 +5,8 @@
 typedef enum {
     SCREEN_TITLE,
     SCREEN_PLAYING,
-    SCREEN_GAME_OVER
+    SCREEN_GAME_OVER,
+    SCREEN_ENDING
 } GameScreen;
 
 #endif

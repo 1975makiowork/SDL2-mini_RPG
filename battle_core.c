@@ -115,6 +115,11 @@ void enemy_defeat(
     BattleMode *battle_mode
 )
 {
+    if(enemy->type == ENEMY_DRAGON)
+    {
+        player->dragon_defeated = true;
+    }
+
     player->exp += enemy->exp;
     player->gold += enemy->gold;
 

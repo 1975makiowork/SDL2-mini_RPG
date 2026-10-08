@@ -235,4 +235,10 @@ void draw_message(
     const char *message
 );
 
+void draw_ending(
+    SDL_Renderer *renderer,
+    TTF_Font *font,
+    SDL_Texture *ending_texture
+);
+
 #endif

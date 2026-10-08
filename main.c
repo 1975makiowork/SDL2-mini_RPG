@@ -25,6 +25,7 @@
 #include "shop.h"
 #include "title.h"
 #include "bgm.h"
+#include "ending.h"
 
 int main(void)
 {
@@ -111,6 +112,12 @@ int main(void)
             "assets/gameover.png"
         );
 
+    SDL_Texture *ending_texture =
+        IMG_LoadTexture(
+            renderer,
+            "assets/ending.png"
+        );
+
     SDL_Texture *player_texture =
         IMG_LoadTexture(
             renderer,
@@ -171,11 +178,6 @@ int main(void)
             "assets/temple_map.png"
         );
 
-    if (!field_map_texture || !town_map_texture) {
-        fprintf(stderr, "Map画像の読み込みに失敗しました: %s\n", IMG_GetError());
-        return 1;
-    }
-
     SDL_Texture *chest_closed_texture =
         IMG_LoadTexture(
             renderer,
@@ -188,24 +190,16 @@ int main(void)
             "assets/chest_open.png"
         );
 
-if (
-    !field_map_texture ||
-    !town_map_texture ||
-    !cave_map_texture ||
-    !cave_b1_map_texture ||
-    !cave_b2_map_texture ||
-    !temple_map_texture ||
-    !chest_closed_texture ||
-    !chest_open_texture
-)
-{
-    fprintf(
-        stderr,
-        "Mapまたは宝箱画像の読み込みに失敗しました: %s\n",
-        IMG_GetError()
-    );
-    return 1;
-}
+    if(!ending_texture)
+    {
+        fprintf(
+            stderr,
+            "エンディング画像の読み込みに失敗しました: %s\n",
+            IMG_GetError()
+        );
+
+        return 1;
+    }
 
     SDL_SetTextureScaleMode(
         player_texture,
@@ -342,6 +336,19 @@ if (
             if(event.type == SDL_QUIT)
             {
                 running = false;
+            }
+//エンディング後キー入力
+            if(screen == SCREEN_ENDING)
+            {
+                handle_ending_input(
+                    &event,
+                    &screen
+                );
+
+                if(screen == SCREEN_TITLE)
+                {
+                    continue;
+                }
             }
 //フィールドイベント処理
             if(event.type == SDL_KEYDOWN)
@@ -733,6 +740,16 @@ if (
             play_bgm(BGM_GAMEOVER);
         }
 
+//エンディング開始
+        if(screen == SCREEN_PLAYING && player.dragon_defeated)
+        {
+            screen = SCREEN_ENDING;
+
+            init_ending();
+
+            play_bgm(BGM_TITLE);
+        }
+
 //プレイヤー表示
         SDL_SetRenderDrawColor(
             renderer,
@@ -748,6 +765,16 @@ if (
         else if(screen == SCREEN_GAME_OVER)
         {
             draw_game_over(renderer, font, gameover_texture);
+        }
+        else if(screen == SCREEN_ENDING)
+        {
+            update_ending();
+
+            draw_ending(
+                renderer,
+                font,
+                ending_texture
+            );
         }
         else if(screen == SCREEN_PLAYING)
         {
@@ -999,6 +1026,7 @@ if (
 
     SDL_DestroyTexture(title_texture);
     SDL_DestroyTexture(gameover_texture);
+    SDL_DestroyTexture(ending_texture);
 
     SDL_DestroyTexture(villager_texture);
     SDL_DestroyTexture(priest_texture);
