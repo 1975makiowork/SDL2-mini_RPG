@@ -25,4 +25,37 @@ void quit_bgm(void);
 void set_area_bgm(BGMType type);
 void end_battle_bgm(void);
 
+typedef enum
+{
+    SE_CURSOR,
+    SE_CONFIRM,
+    SE_CANSEL,
+    SE_MENU,
+    SE_STAIRS,
+    SE_CHEST,
+    SE_BOMB,
+    SE_ROPE,
+    SE_SLASH,
+    SE_FIRE,
+    SE_ICE,
+    SE_THUNDER,
+    SE_HEAL,
+    SE_ENEMY_ATTACK,
+    SE_TACKLE,
+    SE_DRAIN,
+    SE_BONE,
+    SE_QUEKE,
+    SE_STAB,
+    SE_ESCAPE,
+    SE_TIGHT,
+    SE_STRONG_SLASH,
+    SE_DRAGON_BREATH,
+    SE_CHAGE_BREATH,
+    SE_COUNT
+} SEType;
+
+int init_se(void);
+void play_se(SEType type);
+void quit_se(void);
+
 #endif

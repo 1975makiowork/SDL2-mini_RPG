@@ -97,6 +97,7 @@ void handle_field_event(
         player->x = 3;
         player->y = 5;
 
+        play_se(SE_STAIRS);
         set_area_bgm(BGM_TOWN);
     }
 //町の出口
@@ -106,6 +107,7 @@ void handle_field_event(
         player->x = 7;
         player->y = 1;
 
+        play_se(SE_STAIRS);
         set_area_bgm(BGM_FIELD);
 
         show_message("町を出た！");
@@ -118,6 +120,7 @@ void handle_field_event(
         player->x = 1;
         player->y = 1;
 
+        play_se(SE_STAIRS);
         set_area_bgm(BGM_CAVE);
 
         show_message("洞窟に入った！");
@@ -153,6 +156,7 @@ void handle_field_event(
             new_x,
             new_y
         );
+        play_se(SE_CHEST);
     }
 //神殿入口
     if(tile == 'S')
@@ -162,6 +166,7 @@ void handle_field_event(
         player->x = 4;
         player->y = 8;
 
+        play_se(SE_STAIRS);
         set_area_bgm(BGM_TEMPLE);
 
         show_message("謎の神殿に入った！");

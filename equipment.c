@@ -6,6 +6,7 @@
 #include "equipment.h"
 #include "message_ui.h"
 #include "shop.h"
+#include "bgm.h"
 
 void handle_shop_input(
     SDL_Event *event,
@@ -17,6 +18,7 @@ void handle_shop_input(
     if(event->key.keysym.sym == SDLK_UP)
     {
         (*shop_cursor)--;
+        play_se(SE_CURSOR);
 
         if(*shop_cursor < 0)
             *shop_cursor = 2;
@@ -25,6 +27,7 @@ void handle_shop_input(
     if(event->key.keysym.sym == SDLK_DOWN)
     {
         (*shop_cursor)++;
+        play_se(SE_CURSOR);
 
         if(*shop_cursor > 2)
             *shop_cursor = 0;
@@ -55,12 +58,14 @@ void buy_sword(Player *player)
     if(player->equipment.sword)
     {
         show_message("すでに持っている！");
+        play_se(SE_CANSEL);
         return;
     }
 
     if(player->gold < 20)
     {
         show_message("お金が足りない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -70,6 +75,7 @@ void buy_sword(Player *player)
 
     calc_player_status(player);
 
+    play_se(SE_CONFIRM);
     show_message("剣を購入した！");
 }
 
@@ -78,12 +84,14 @@ void buy_leather_armor(Player *player)
     if(player->equipment.leather_armor)
     {
         show_message("すでに持っている！");
+        play_se(SE_CANSEL);
         return;
     }
 
     if(player->gold < 30)
     {
         show_message("お金が足りない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -92,6 +100,7 @@ void buy_leather_armor(Player *player)
     player->equipment.leather_armor = true;
 
     calc_player_status(player);
+    play_se(SE_CONFIRM);
 
     show_message("皮の鎧を購入した！");
 }
@@ -101,6 +110,7 @@ void equip_sword(Player *player)
     if(!player->equipment.sword)
     {
         show_message("剣を持ってない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -109,6 +119,7 @@ void equip_sword(Player *player)
         player->equipment.sword_equipped = false;
 
         calc_player_status(player);
+        play_se(SE_CANSEL);
 
         show_message("剣を外した！");
         return;
@@ -120,15 +131,17 @@ void equip_sword(Player *player)
     player->equipment.rune_sword_equipped = false;
 
     calc_player_status(player);
+    play_se(SE_CONFIRM);
 
     show_message("剣を装備した！");
 }
-//装備着脱
+
 void equip_broad_sword(Player *player)
 {
     if(!player->equipment.broad_sword)
     {
         show_message("ブロードソードを持ってない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -137,6 +150,7 @@ void equip_broad_sword(Player *player)
         player->equipment.broad_sword_equipped = false;
 
         calc_player_status(player);
+        play_se(SE_CANSEL);
 
         show_message("ブロードソードを外した！");
         return;
@@ -147,6 +161,7 @@ void equip_broad_sword(Player *player)
     player->equipment.rune_sword_equipped = false;
 
     calc_player_status(player);
+    play_se(SE_CONFIRM);
 
     show_message("ブロードソードを装備した！");
 }
@@ -156,6 +171,7 @@ void equip_rune_sword(Player *player)
     if(!player->equipment.rune_sword)
     {
         show_message("ルーンソードを持ってない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -164,6 +180,7 @@ void equip_rune_sword(Player *player)
         player->equipment.rune_sword_equipped = false;
 
         calc_player_status(player);
+        play_se(SE_CANSEL);
 
         show_message("ルーンソードを外した！");
         return;
@@ -174,6 +191,7 @@ void equip_rune_sword(Player *player)
     player->equipment.rune_sword_equipped = true;
 
     calc_player_status(player);
+    play_se(SE_CONFIRM);
 
     show_message("ルーンソードを装備した！");
 }
@@ -183,6 +201,7 @@ void equip_leather_armor(Player *player)
     if(!player->equipment.leather_armor)
     {
         show_message("革の鎧を持ってない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -191,6 +210,7 @@ void equip_leather_armor(Player *player)
         player->equipment.leather_armor_equipped = false;
 
         calc_player_status(player);
+        play_se(SE_CANSEL);
 
         show_message("革の鎧を外した！");
         return;
@@ -200,6 +220,7 @@ void equip_leather_armor(Player *player)
     player->equipment.rune_armor_equipped = false;
 
     calc_player_status(player);
+    play_se(SE_CONFIRM);
 
     show_message("革の鎧を装備した！");
 }
@@ -209,6 +230,7 @@ void equip_rune_armor(Player *player)
     if(!player->equipment.rune_armor)
     {
         show_message("ルーンアーマーを持ってない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -217,6 +239,7 @@ void equip_rune_armor(Player *player)
         player->equipment.rune_armor_equipped = false;
 
         calc_player_status(player);
+        play_se(SE_CANSEL);
 
         show_message("ルーンアーマーを外した！");
         return;
@@ -226,6 +249,7 @@ void equip_rune_armor(Player *player)
     player->equipment.rune_armor_equipped = true;
 
     calc_player_status(player);
+    play_se(SE_CONFIRM);
 
     show_message("ルーンアーマーを装備した！");
 }
@@ -235,6 +259,7 @@ void equip_wooden_shield(Player *player)
     if(!player->equipment.wooden_shield)
     {
         show_message("木の盾を持ってない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -243,6 +268,7 @@ void equip_wooden_shield(Player *player)
         player->equipment.wooden_shield_equipped = false;
 
         calc_player_status(player);
+        play_se(SE_CANSEL);
 
         show_message("木の盾を外した！");
         return;
@@ -252,6 +278,7 @@ void equip_wooden_shield(Player *player)
     player->equipment.rune_shield_equipped = false;
 
     calc_player_status(player);
+    play_se(SE_CONFIRM);
 
     show_message("木の盾を装備した！");
 }
@@ -261,6 +288,7 @@ void equip_rune_shield(Player *player)
     if(!player->equipment.rune_shield)
     {
         show_message("ルーンシールドを持ってない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -269,6 +297,7 @@ void equip_rune_shield(Player *player)
         player->equipment.rune_shield_equipped = false;
 
         calc_player_status(player);
+        play_se(SE_CANSEL);
 
         show_message("ルーンシールドを外した！");
         return;
@@ -278,6 +307,7 @@ void equip_rune_shield(Player *player)
     player->equipment.rune_shield_equipped = true;
 
     calc_player_status(player);
+    play_se(SE_CONFIRM);
 
     show_message("ルーンシールドを装備した！");
 }

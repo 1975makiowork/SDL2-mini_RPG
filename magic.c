@@ -5,6 +5,7 @@
 
 #include "magic.h"
 #include "battle.h"
+#include "bgm.h"
 
 typedef struct {
     const char *name;
@@ -206,6 +207,7 @@ void battle_fire(
             FIRE_CONFIG,
             enemy->fire_resist
         );
+    play_se(SE_FIRE);
 
     if(damage < 0)
     {
@@ -237,6 +239,7 @@ void battle_ice(
             ICE_CONFIG,
             enemy->ice_resist
         );
+    play_se(SE_ICE);
 
     if(damage < 0)
     {
@@ -268,6 +271,7 @@ void battle_thunder(
             THUNDER_CONFIG,
             enemy->thunder_resist
         );
+    play_se(SE_THUNDER);
 
     if(damage < 0)
     {

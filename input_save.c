@@ -10,6 +10,7 @@
 #include "cave_b2.h"
 #include "temple.h"
 #include "message_ui.h"
+#include "bgm.h"
 
 static void copy_maps_to_state(GameState *game)
 {
@@ -47,6 +48,7 @@ void handle_save_input(
     if(event->key.keysym.sym == SDLK_SPACE)
     {
         *battle_mode = MODE_FIELD;
+        play_se(SE_CANSEL);
     }
 
     if(event->key.keysym.sym == SDLK_RETURN)
@@ -66,6 +68,8 @@ void handle_save_input(
 
                 copy_maps_to_state(&game);
 
+                play_se(SE_CONFIRM);
+
                 if(save_game(&game))
                 {
                     show_message("セーブしました！");
@@ -80,6 +84,8 @@ void handle_save_input(
             case 1:
             {
                 GameState game;
+
+                play_se(SE_CONFIRM);
 
                 if(load_game(&game))
                 {
@@ -111,11 +117,13 @@ void handle_save_input(
     if(event->key.keysym.sym == SDLK_UP)
     {
         (*save_cursor)--;
+        play_se(SE_CURSOR);
     }
 
     if(event->key.keysym.sym == SDLK_DOWN)
     {
         (*save_cursor)++;
+        play_se(SE_CURSOR);
     }
 
     if(*save_cursor < 0)

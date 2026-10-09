@@ -7,6 +7,7 @@
 #include "message_ui.h"
 #include "shop.h"
 #include "item_shop.h"
+#include "bgm.h"
 
 void handle_item_shop_input(
     SDL_Event *event,
@@ -18,6 +19,7 @@ void handle_item_shop_input(
     if(event->key.keysym.sym == SDLK_UP)
     {
         (*item_shop_cursor)--;
+        play_se(SE_CURSOR);
 
         if(*item_shop_cursor < 0)
             *item_shop_cursor = 3;
@@ -26,6 +28,7 @@ void handle_item_shop_input(
     if(event->key.keysym.sym == SDLK_DOWN)
     {
         (*item_shop_cursor)++;
+        play_se(SE_CURSOR);
 
         if(*item_shop_cursor > 3)
             *item_shop_cursor = 0;
@@ -60,6 +63,7 @@ void buy_potion(Player *player)
     if(player->gold < 10)
     {
         show_message("お金が足りない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -67,6 +71,7 @@ void buy_potion(Player *player)
 
     player->inventory.potion++;
 
+    play_se(SE_CONFIRM);
     show_message("ポーションを購入した！");
 }
 
@@ -75,6 +80,7 @@ void buy_ether(Player *player)
     if(player->gold < 30)
     {
         show_message("お金が足りない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -82,6 +88,7 @@ void buy_ether(Player *player)
 
     player->inventory.ether++;
 
+    play_se(SE_CONFIRM);
     show_message("エーテルを購入した！");
 }
 
@@ -90,6 +97,7 @@ void buy_rope(Player *player)
     if(player->gold < 50)
     {
         show_message("お金が足りない！");
+        play_se(SE_CANSEL);
         return;
     }
 
@@ -97,5 +105,6 @@ void buy_rope(Player *player)
 
     player->inventory.rope++;
 
+    play_se(SE_CONFIRM);
     show_message("戻りの紐を購入した！");
 }

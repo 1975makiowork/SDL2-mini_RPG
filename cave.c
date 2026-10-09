@@ -58,6 +58,7 @@ void handle_cave_event(
         player->x = 18;
         player->y = 4;
 
+        play_se(SE_STAIRS);
         set_area_bgm(BGM_FIELD);
 
         show_message("洞窟を出た！");
@@ -69,6 +70,7 @@ void handle_cave_event(
         player->x = 18;
         player->y = 13;
 
+        play_se(SE_STAIRS);
         set_area_bgm(BGM_CAVE_B1);
 
         show_message("地下１階へ降りた！");
@@ -81,6 +83,8 @@ void handle_cave_event(
             new_x,
             new_y
         );
+
+        play_se(SE_CHEST);
     }
     if(tile == 'E')
     {

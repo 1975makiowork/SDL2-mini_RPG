@@ -4,6 +4,7 @@
 
 #include "enemy_skill.h"
 #include "message_ui.h"
+#include "bgm.h"
 
 static bool deal_damage_to_player(
     Player *player,
@@ -49,7 +50,8 @@ void normal_enemy_attack(
     BattleMode *battle_mode
 )
 {
-   int damage = calc_physical_damage(player, attack);
+    int damage = calc_physical_damage(player, attack);
+    play_se(SE_ENEMY_ATTACK);
 
     char msg[128];
     sprintf(msg, "敵の攻撃！%dダメージ！", damage);
@@ -68,6 +70,7 @@ static void orc_special_move(
     add_battle_log("オークの強烈なラリアット！");
 
     int damage = calc_physical_damage(player, attack * 2);
+    play_se(SE_TACKLE);
 
     char msg[128];
     sprintf(msg, "%dダメージ！", damage);
@@ -95,6 +98,7 @@ static void bat_special_move(
     {
        enemy->hp = enemy->max_hp;
     }
+    play_se(SE_DRAIN);
 
     char msg[128];
     sprintf(msg,
@@ -136,6 +140,7 @@ static void skeleton_special_move(
     }
 
     player->hp -= enemy_damage;
+    play_se(SE_BONE);
 
     char msg[128];
     sprintf(msg, "%dダメージ！", enemy_damage);
@@ -180,6 +185,7 @@ static void golem_special_move(
         }
 
         player->hp -= enemy_damage;
+        play_se(SE_QUEKE);
 
         char msg[128];
         sprintf(msg,
@@ -228,6 +234,7 @@ void static scorpion_special_move(
     add_battle_log("スコーピオンは毒針を刺してきた！");
 
     int damage = calc_physical_damage(player, attack);
+    play_se(SE_STAB);
 
     char msg[128];
     sprintf(msg, "%dダメージ！", damage);
@@ -247,6 +254,8 @@ static void lucky_fairy_special_move(
     BattleMode *battle_mode
 )
 {
+    play_se(SE_ESCAPE);
+
     show_message("ラッキーフェアリーは逃げ出した！");
 
     end_battle(battle_mode);
@@ -268,6 +277,7 @@ static void wizard_magic_fire(
     add_battle_log(msg);
 
     deal_damage_to_player(player, damage, battle_mode);
+    play_se(SE_FIRE);
 
     if(rand() % 5 == 0)
     {
@@ -293,6 +303,7 @@ static void wizard_magic_ice(
     add_battle_log(msg);
 
     deal_damage_to_player(player, damage, battle_mode);
+    play_se(SE_ICE);
 
     if(rand() % 5 == 0)
     {
@@ -319,6 +330,7 @@ static void wizard_magic_thunder(
     add_battle_log(msg);
 
     deal_damage_to_player(player, damage, battle_mode);
+    play_se(SE_THUNDER);
 
     if(rand() % 5 == 0)
     {
@@ -337,6 +349,7 @@ static void wizard_magic_heal(
     add_battle_log("まどうしはヒールを唱えた！");
 
     enemy->hp += 15;
+    play_se(SE_HEAL);
 
     if(enemy->hp > enemy->max_hp)
     {
@@ -373,6 +386,7 @@ static void kobold_special_move(
     {
         enemy->hp = enemy->max_hp;
     }
+    play_se(SE_STAB);
 
     char msg[128];
     sprintf(msg,
@@ -405,6 +419,7 @@ static void wisp_special_move(
         int enemy_damage = attack * 3;
 
         player->hp -= enemy_damage;
+        play_se(SE_BOMB);
 
         char msg[128];
         sprintf(msg,
@@ -455,6 +470,7 @@ static void lamia_magic_ice(
     add_battle_log(msg);
 
     deal_damage_to_player(player, damage, battle_mode);
+    play_se(SE_ICE);
 
     if(rand() % 5 == 0)
     {
@@ -474,6 +490,7 @@ static void lamia_special_move(
 {
     add_battle_log("ラミアは胴体でしめつけてきた！！");
     int damage = calc_physical_damage(player, attack);
+    play_se(SE_TIGHT);
 
     char msg[128];
     sprintf(msg, "%dダメージ！", damage);
@@ -495,6 +512,7 @@ static void dragon_smash(
     add_battle_log("竜神は鋭い爪で襲いかかった！");
 
     int damage = calc_physical_damage(player, attack * 2);
+    play_se(SE_STRONG_SLASH);
 
     char msg[128];
     sprintf(msg, "%dダメージ！", damage);
@@ -513,6 +531,7 @@ static void dragon_breath(
     add_battle_log("竜神のブレス攻撃！");
 
     int damage = attack * 2;
+    play_se(SE_DRAGON_BREATH);
 
     char msg[128];
     sprintf(msg, "%dダメージ！", damage);
@@ -537,6 +556,7 @@ static void dragon_heal(
     add_battle_log("竜神は目を閉じて傷を癒やした！");
 
     enemy->hp += 30;
+    play_se(SE_HEAL);
 
     if(enemy->hp > enemy->max_hp)
     {
@@ -867,6 +887,7 @@ void enemy_action(
                 int enemy_damage = attack * 3;
 
                 player->hp -= enemy_damage;
+                play_se(SE_CHAGE_BREATH);
 
                 char msg[128];
                 sprintf(msg,

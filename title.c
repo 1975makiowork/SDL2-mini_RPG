@@ -1,6 +1,7 @@
 // title.c
 #include "title.h"
 #include "render.h"
+#include "bgm.h"
 
 void handle_title_input(
     SDL_Event *event,
@@ -10,6 +11,8 @@ void handle_title_input(
     if(event->key.keysym.sym == SDLK_RETURN)
     {
         *screen = SCREEN_PLAYING;
+
+        play_se(SE_CONFIRM);
     }
 }
 

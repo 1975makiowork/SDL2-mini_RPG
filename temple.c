@@ -56,6 +56,7 @@ void handle_temple_event(
         player->x = 4;
         player->y = 11;
 
+        play_se(SE_STAIRS);
         set_area_bgm(BGM_FIELD);
 
         show_message("神殿を出た！");

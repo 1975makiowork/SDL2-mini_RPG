@@ -199,6 +199,8 @@ void battle_attack(
 
     enemy->hp -= player_damage;
 
+    play_se(SE_SLASH);
+
         char msg[128];
         sprintf(
             msg,
@@ -274,6 +276,7 @@ void battle_heal(
         player->hp = player->max_hp;
     }
 
+    play_se(SE_HEAL);
     char msg[64];
     sprintf(msg, "ヒール！ HP+%d", heal_amount);
     add_battle_log(msg);
@@ -315,6 +318,7 @@ void battle_potion(
 
     }
 
+    play_se(SE_HEAL);
     add_battle_log("ポーションを使った！");
 
     printf("HP:%d\n",
@@ -354,6 +358,7 @@ void battle_ether(
 
     }
 
+    play_se(SE_HEAL);
     add_battle_log("エーテルを使った！");
 
     printf("MP:%d\n",
@@ -389,6 +394,7 @@ void battle_bomb(
 
     enemy->hp -= damage;
 
+    play_se(SE_BOMB);
     char msg[64];
     sprintf(msg,
             "爆薬を使った！%dダメージ！",

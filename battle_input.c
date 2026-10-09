@@ -4,6 +4,7 @@
 
 #include "battle.h"
 #include "magic.h"
+#include "bgm.h"
 
 void handle_normal_battle_input(
     SDL_Event *event,
@@ -39,6 +40,7 @@ void handle_normal_battle_input(
     if(event->key.keysym.sym == SDLK_UP)
     {
         (*battle_cursor)--;
+        play_se(SE_CURSOR);
 
         if(*battle_cursor < 0)
             *battle_cursor = 3;
@@ -47,6 +49,7 @@ void handle_normal_battle_input(
     if(event->key.keysym.sym == SDLK_DOWN)
     {
         (*battle_cursor)++;
+        play_se(SE_CURSOR);
 
         if(*battle_cursor > 3)
             *battle_cursor = 0;
@@ -79,10 +82,12 @@ void handle_normal_battle_input(
 
             case 2:
                 *battle_mode = MODE_MAGIC;
+                play_se(SE_CONFIRM);
                 break;
 
             case 3:
                 *battle_mode = MODE_USE_ITEM;
+                play_se(SE_CONFIRM);
                 break;
         }
     }
@@ -102,6 +107,7 @@ void handle_magic_input(
     if(event->key.keysym.sym == SDLK_UP)
     {
         (*magic_cursor)--;
+        play_se(SE_CURSOR);
 
         if(*magic_cursor < 0)
             *magic_cursor = 3;
@@ -110,14 +116,16 @@ void handle_magic_input(
     if(event->key.keysym.sym == SDLK_DOWN)
     {
         (*magic_cursor)++;
+        play_se(SE_CURSOR);
 
         if(*magic_cursor > 3)
             *magic_cursor = 0;
     }
 
-    if(event->key.keysym.sym == SDLK_ESCAPE)
+    if(event->key.keysym.sym == SDLK_SPACE)
     {
         *battle_mode = MODE_BATTLE;
+        play_se(SE_CANSEL);
     }
 
     if(event->key.keysym.sym == SDLK_RETURN)
@@ -173,6 +181,7 @@ void handle_item_input(
     if(event->key.keysym.sym == SDLK_UP)
     {
         (*use_item_cursor)--;
+        play_se(SE_CURSOR);
 
         if(*use_item_cursor < 0)
             *use_item_cursor = 2;
@@ -181,14 +190,16 @@ void handle_item_input(
     if(event->key.keysym.sym == SDLK_DOWN)
     {
         (*use_item_cursor)++;
+        play_se(SE_CURSOR);
 
         if(*use_item_cursor > 2)
             *use_item_cursor = 0;
     }
 
-    if(event->key.keysym.sym == SDLK_ESCAPE)
+    if(event->key.keysym.sym == SDLK_SPACE)
     {
         *battle_mode = MODE_BATTLE;
+        play_se(SE_CANSEL);
     }
 
     if(event->key.keysym.sym == SDLK_RETURN)

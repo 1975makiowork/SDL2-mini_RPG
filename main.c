@@ -69,6 +69,13 @@ int main(void)
         return 1;
     }
 
+    if (!init_se())
+    {
+        quit_se();
+        quit_bgm();
+        return 1;
+    }
+
     play_bgm(BGM_TITLE);
 
     if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
@@ -403,22 +410,26 @@ int main(void)
                             {
                                 case 0:
                                     battle_mode = MODE_STATUS;
+                                    play_se(SE_CONFIRM);
                                     menu_open = false;
                                     break;
 
                                 case 1:
                                     battle_mode = MODE_ITEM;
+                                    play_se(SE_CONFIRM);
                                     menu_open = false;
                                     item_cursor = 0;
                                     break;
 
                                 case 2:
                                     battle_mode = MODE_EQUIPMENT;
+                                    play_se(SE_CONFIRM);
                                     menu_open = false;
                                     break;
 
                                 case 3:
                                     battle_mode = MODE_SAVE;
+                                    play_se(SE_CONFIRM);
                                     menu_open = false;
                                     break;
                             }
@@ -427,6 +438,7 @@ int main(void)
                         if(event.key.keysym.sym == SDLK_SPACE)
                         {
                             menu_open = !menu_open;
+                            play_se(SE_MENU);
 
                             if(menu_open)
                             {
@@ -439,11 +451,13 @@ int main(void)
                             if(event.key.keysym.sym == SDLK_UP)
                             {
                                 menu_cursor--;
+                                play_se(SE_CURSOR);
                             }
 
                             if(event.key.keysym.sym == SDLK_DOWN)
                             {
                                 menu_cursor++;
+                                play_se(SE_CURSOR);
                             }
 
                             if(menu_cursor < 0)
@@ -645,14 +659,15 @@ int main(void)
 //アイテム処理
                     else if(battle_mode == MODE_ITEM)
                     {
-                        handle_item_menu_input(&event, &battle_mode, &item_cursor, &player,
+                        handle_item_menu_input(&event, &battle_mode,
+                            &item_cursor, &player,
                             &in_cave, &in_cave_b1, &in_cave_b2);
                     }
 //装備処理
                     else if(battle_mode == MODE_EQUIPMENT)
                     {
-                        handle_equipment_input(&event, &battle_mode, &equipment_cursor,
-                            &player);
+                        handle_equipment_input(&event, &battle_mode,
+                            &equipment_cursor, &player);
                     }
 //セーブ管理処理
                     else if(battle_mode == MODE_SAVE)
@@ -1061,6 +1076,7 @@ int main(void)
     SDL_DestroyWindow(window);
 
     quit_bgm();
+    quit_se();
     Mix_CloseAudio();
 
     TTF_Quit();
