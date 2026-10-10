@@ -179,6 +179,12 @@ int init_se(void)
     se_list[SE_CHAGE_BREATH] =
         Mix_LoadWAV("se/chage_breath.ogg");
 
+    se_list[SE_LEVELUP] =
+        Mix_LoadWAV("se/levelup.ogg");
+
+    se_list[SE_VICTORY] =
+        Mix_LoadWAV("se/victory.ogg");
+
     for(int i = 0; i < SE_COUNT; i++)
     {
         if(se_list[i] == NULL)

@@ -51,6 +51,8 @@ typedef enum
     SE_STRONG_SLASH,
     SE_DRAGON_BREATH,
     SE_CHAGE_BREATH,
+    SE_LEVELUP,
+    SE_VICTORY,
     SE_COUNT
 } SEType;
 

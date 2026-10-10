@@ -123,6 +123,8 @@ void enemy_defeat(
     player->exp += enemy->exp;
     player->gold += enemy->gold;
 
+    play_se(SE_VICTORY);
+
     char msg[64];
     sprintf(msg, "敵を倒した！%d EXP %d G獲得！", enemy->exp, enemy->gold);
     show_message(msg);
@@ -141,6 +143,7 @@ void enemy_defeat(
         player->base_defense += 1;
 
         calc_player_status(player);
+        play_se(SE_LEVELUP);
 
         show_message("レベルアップ！");
         printf("Lv:%d\n", player->level);
