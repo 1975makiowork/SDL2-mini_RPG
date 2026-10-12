@@ -22,7 +22,17 @@ typedef enum {
     MODE_ITEM_SHOP
 } BattleMode;
 
+typedef enum
+{
+    TURN_PLAYER_INPUT,
+    TURN_PLAYER_RESULT,
+    TURN_ENEMY_RESULT
+} BattleTurnPhase;
+
 #define LOG_LINES 3
+
+BattleTurnPhase get_battle_turn_phase(void);
+void set_battle_turn_phase(BattleTurnPhase phase);
 
 extern char battle_logs[LOG_LINES][128];
 

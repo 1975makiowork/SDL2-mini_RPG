@@ -685,6 +685,67 @@ int main(void)
                             &running
                         );
                     }
+                    //戦闘結果の確認とターン進行
+                    else if(
+                        (
+                            battle_mode == MODE_BATTLE ||
+                            battle_mode == MODE_MAGIC ||
+                            battle_mode == MODE_USE_ITEM
+                        ) &&
+                        get_battle_turn_phase() != TURN_PLAYER_INPUT
+                    )
+                    {
+                        // Enterキーが押されたときだけ進行
+                        if(
+                            event.key.keysym.sym == SDLK_RETURN ||
+                            event.key.keysym.sym == SDLK_KP_ENTER
+                        )
+                        {
+                            //プレイヤーの行動結果を確認したら敵のターンへ
+                            if(
+                                get_battle_turn_phase()
+                                == TURN_PLAYER_RESULT
+                            )
+                            {
+                                enemy_turn(
+                                    &player,
+                                    &enemy,
+                                    &battle_mode
+                                );
+
+                                //戦闘が継続中なら敵の行動結果を表示
+                                if(
+                                    battle_mode == MODE_BATTLE ||
+                                    battle_mode == MODE_MAGIC ||
+                                    battle_mode == MODE_USE_ITEM
+                                )
+                                {
+                                    set_battle_turn_phase(
+                                        TURN_ENEMY_RESULT
+                                    );
+                                }
+                                else
+                                {
+                                    //戦闘終了時は通常の入力状態へ
+                                    set_battle_turn_phase(
+                                        TURN_PLAYER_INPUT
+                                    );
+                                }
+                            }
+                            //敵の行動結果を確認したらプレイヤーのターンへ
+                            else if(
+                                get_battle_turn_phase()
+                                == TURN_ENEMY_RESULT
+                            )
+                            {
+                                set_battle_turn_phase(
+                                    TURN_PLAYER_INPUT
+                                );
+
+                                battle_mode = MODE_BATTLE;
+                            }
+                        }
+                    }
 //通常戦闘処理
                     else if(battle_mode == MODE_BATTLE)
                     {

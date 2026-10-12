@@ -140,11 +140,8 @@ static void finish_magic_attack(
         return;
     }
 
-    enemy_turn(
-        player,
-        enemy,
-        battle_mode
-    );
+    set_battle_turn_phase(TURN_PLAYER_RESULT);
+    return;
 }
 
 static int cast_magic(

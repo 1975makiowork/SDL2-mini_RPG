@@ -15,6 +15,21 @@
 #include "message_ui.h"
 #include "bgm.h"
 
+// 戦闘ターンの進行状態
+static BattleTurnPhase battle_turn_phase = TURN_PLAYER_INPUT;
+
+// ターン状態を取得
+BattleTurnPhase get_battle_turn_phase(void)
+{
+    return battle_turn_phase;
+}
+
+// ターン状態を変更
+void set_battle_turn_phase(BattleTurnPhase phase)
+{
+    battle_turn_phase = phase;
+}
+
 //必要累積EXP計算式
 int required_exp(int level)
 {
@@ -224,11 +239,7 @@ void battle_attack(
             return;
         }
 
-        enemy_turn(
-            player,
-            enemy,
-            battle_mode
-        );
+        set_battle_turn_phase(TURN_PLAYER_RESULT);
         return;
     }
 
@@ -242,11 +253,7 @@ void battle_defend(
 
     add_battle_log("防御した！");
 
-    enemy_turn(
-        player,
-        enemy,
-        battle_mode
-    );
+    set_battle_turn_phase(TURN_PLAYER_RESULT);
     return;
 }
 
@@ -290,11 +297,7 @@ void battle_heal(
     printf("MP:%d\n",
            player->mp);
 
-    enemy_turn(
-        player,
-        enemy,
-        battle_mode
-    );
+    set_battle_turn_phase(TURN_PLAYER_RESULT);
     return;
 }
 
@@ -330,11 +333,7 @@ void battle_potion(
     printf("残り:%d個\n",
            player->inventory.potion);
 
-    enemy_turn(
-        player,
-        enemy,
-        battle_mode
-    );
+    set_battle_turn_phase(TURN_PLAYER_RESULT);
     return;
 }
 
@@ -370,11 +369,7 @@ void battle_ether(
     printf("残り:%d個\n",
            player->inventory.ether);
 
-    enemy_turn(
-        player,
-        enemy,
-        battle_mode
-    );
+    set_battle_turn_phase(TURN_PLAYER_RESULT);
     return;
 }
 
@@ -425,11 +420,7 @@ void battle_bomb(
     printf("残り:%d個\n",
            player->inventory.bomb);
 
-    enemy_turn(
-        player,
-        enemy,
-        battle_mode
-    );
+    set_battle_turn_phase(TURN_PLAYER_RESULT);
     return;
 }
 

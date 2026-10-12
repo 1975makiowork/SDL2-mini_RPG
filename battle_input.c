@@ -29,11 +29,7 @@ void handle_normal_battle_input(
             player->stunned = false;
         }
 
-        enemy_turn(
-            player,
-            enemy,
-            battle_mode
-        );
+        set_battle_turn_phase(TURN_PLAYER_RESULT);
         return;
     }
 
