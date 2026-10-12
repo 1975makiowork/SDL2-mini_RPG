@@ -26,7 +26,8 @@ typedef enum
 {
     TURN_PLAYER_INPUT,
     TURN_PLAYER_RESULT,
-    TURN_ENEMY_RESULT
+    TURN_ENEMY_RESULT,
+    TURN_BATTLE_END_WAIT
 } BattleTurnPhase;
 
 #define LOG_LINES 3

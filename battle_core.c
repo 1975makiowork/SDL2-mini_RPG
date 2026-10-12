@@ -163,7 +163,8 @@ void enemy_defeat(
         show_message("レベルアップ！");
         printf("Lv:%d\n", player->level);
     }
-    end_battle(battle_mode);
+    *battle_mode = MODE_BATTLE;
+    set_battle_turn_phase(TURN_BATTLE_END_WAIT);
     end_battle_bgm();
 }
 

@@ -258,7 +258,9 @@ static void lucky_fairy_special_move(
 
     show_message("ラッキーフェアリーは逃げ出した！");
 
-    end_battle(battle_mode);
+    *battle_mode = MODE_BATTLE;
+    set_battle_turn_phase(TURN_BATTLE_END_WAIT);
+    end_battle_bgm();
 }
 
 static void wizard_magic_fire(
