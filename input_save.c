@@ -98,6 +98,31 @@ void handle_save_input(
 
                     copy_maps_from_state(&game);
 
+                    if(*in_temple)
+                    {
+                        set_area_bgm(BGM_TEMPLE);
+                    }
+                    else if(*in_cave_b2)
+                    {
+                        set_area_bgm(BGM_CAVE_B2);
+                    }
+                    else if(*in_cave_b1)
+                    {
+                        set_area_bgm(BGM_CAVE_B1);
+                    }
+                    else if(*in_cave)
+                    {
+                        set_area_bgm(BGM_CAVE);
+                    }
+                    else if(*in_town)
+                    {
+                        set_area_bgm(BGM_TOWN);
+                    }
+                    else
+                    {
+                        set_area_bgm(BGM_FIELD);
+                    }
+
                     show_message("ロードしました！");
                 }
                 else
